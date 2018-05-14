@@ -1,0 +1,16 @@
+<div ng-controller="createBcktController" layout="column" ng-cloak>
+    <div layout="row">
+        <md-input-container flex="25">
+            <label>Enter Bucket name</label>
+            <input required name="bucketname" ng-model="bucketname">
+            <div ng-messages="creatbucketname.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+
+    </div>
+    <div layout="row">
+        <md-button class="md-raised md-primary" type="submit" ng-click="createBucket()">Create Bucket</md-button>
+    </div>
+
+</div>

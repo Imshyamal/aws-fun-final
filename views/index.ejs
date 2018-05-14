@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <script src='/javascripts/aws-lib.js'></script>
+    <script src='/javascripts/aws_fun_app.js'></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href='/stylesheets/main.css' />
+
+</head>
+
+<body ng-app="aws-fun">
+    <h1>
+        <%= title %>
+    </h1>
+    <div ng-controller="MainController" layout="column" ng-cloak>
+
+
+        <div layout="row" layout-align="start start">
+            <md-button class="md-raised md-primary" type="submit" ng-click="gotoState('homePage')">Home</md-button>
+            <md-button class="md-raised md-primary" type="submit" ng-click="gotoState('authentications')">Authenticate</md-button>
+            <md-button class="md-raised md-primary" type="submit" ng-click="gotoState('create-bucket')">Create Bucket</md-button>
+            <md-button class="md-raised md-primary" type="submit" ng-click="gotoState('list-bucket')">Get Buckets List</md-button>
+            <md-button class="md-raised md-primary" type="submit" ng-click="gotoState('delete-bucket')">Delete Bucket</md-button>
+
+        </div>
+        <md-divider></md-divider>
+        <ui-view>
+        </ui-view>
+
+        <md-divider></md-divider>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<div ng-controller="bucketController" layout="column" ng-cloak>
+    <div layout="row">
+        <md-button class="md-raised md-primary" type="submit" ng-click="getBucketList()">Get Bucket List</md-button>
+    </div>
+    <md-divider></md-divider>
+
+    <md-divider></md-divider>
+
+    <div layout="row">
+        <div flex="30">
+            <md-subheader class="md-no-sticky">Bucket Name</md-subheader>
+        </div>
+        <div flex="30">
+            <md-subheader class="md-no-sticky">Creation Date</md-subheader>
+        </div>
+        <div flex="30">
+            <md-subheader class="md-no-sticky">Bucket Operation</md-subheader>
+        </div>
+    </div>
+    <md-divider></md-divider>
+    <md-list-item ng-repeat="bucket in bucketss" ng-click="goToBucket(bucket.Name, $event)" class="noright">>
+        <md-divider></md-divider>
+        <div flex="30">
+            <p>{{bucket.Name}}</p>
+        </div>
+        <div flex="30">
+            <p>{{bucket.CreationDate}}</p>
+        </div>
+        <div flex="40">
+
+
+            <md-button class="md-secondary md-icon-button" aria-label="call" ng-click="deleteBucket(bucket.Name)">
+                <i class="material-icons">   delete   </i>
+            </md-button>
+
+
+            <md-button class=" md-secondary   md-icon-button" aria-label="More" ng-click="gotoState('listObjects',item.Name)">
+                <i class="material-icons"> list    </i>
+            </md-button>
+
+
+
+        </div>
+
+    </md-list-item>
+    </md-list>
+
+</div>

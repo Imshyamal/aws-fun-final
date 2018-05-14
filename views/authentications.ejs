@@ -1,0 +1,37 @@
+<md-content layout-padding>
+
+
+
+    <div ng-controller="authentController" layout="column" ng-cloak>
+        <form name="s3form">
+
+            <div layout="row">
+                <md-input-container flex="25">
+                    <label>AWS ACCESS KEY</label>
+                    <input required name="accessKey" ng-model="accessKey">
+                    <div ng-messages="s3form.accessKey.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+
+            </div>
+
+            <div layout="row">
+                <md-input-container flex="25">
+                    <label>AWS SECRET ACCESS KEY</label>
+                    <input required name="secretAccessKey" ng-model="secretAccessKey">
+                    <div ng-messages="s3form.secretAccessKey.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+
+
+            </div>
+        </form>
+
+        <md-button class="md-raised md-primary" type="submit" ng-click="validate()" flex="30">
+            Authenticate Your Credentials
+        </md-button>
+
+    </div>
+</md-content>
