@@ -5,7 +5,7 @@ angular.module('aws-fun')
     console.log('main controller calling');
 
     $scope.gotoState = function(state) {
-        if (state === 'auth') {
+        if (state === 'listObjects') {
 
 
             $state.go(state);

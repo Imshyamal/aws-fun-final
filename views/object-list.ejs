@@ -1,0 +1,48 @@
+<div ng-controller="ObjectController" layout="column" ng-cloak>
+    <md-divider></md-divider>
+
+    <div layout="row">
+        <div flex="30">
+            <md-subheader class="md-no-sticky">File Name</md-subheader>
+        </div>
+        <div flex="30">
+            <md-subheader class="md-no-sticky">File Modified Date</md-subheader>
+        </div>
+        <div flex="30">
+            <md-subheader class="md-no-sticky">File Operation</md-subheader>
+        </div>
+    </div>
+    <md-divider></md-divider>
+
+    <md-list-item class="noright" ng-repeat="file in objectList">
+        <md-divider></md-divider>
+        <div flex="30">
+            <p>{{ file.Key }}</p>
+        </div>
+
+        <div flex="30">
+            <P>{{ file.LastModified }}</P>
+        </div>
+
+        <div flex="40">
+
+            <md-button class=" md-secondary  md-icon-button" aria-label="More">
+                <i class="material-icons"> edit</i>
+            </md-button>
+
+            <md-button class="md-secondary md-icon-button" ng-click="deleteObject(file.Key)" aria-label="call">
+                <i class="material-icons">delete </i>
+            </md-button>
+
+        </div>
+
+
+    </md-list-item>
+    </md-list>
+
+
+
+
+
+
+</div>

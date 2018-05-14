@@ -11,7 +11,7 @@ angular.module('aws-fun')
             //list of buckets
             if (response && response.data) {
                 $scope.bucketss = response.data.Buckets;
-                console.log("frontend:listbucket success" + response.data.data.Buckets);
+                console.log("frontend:listbucket success" + response.data.Buckets);
             }
 
         }, function errorCallback(err) {
@@ -20,7 +20,7 @@ angular.module('aws-fun')
         });
 
     }
-
+    $scope.getBucketList();
 
     $scope.deleteBucket = function(bucketNameF) {
         var bname = {
@@ -30,10 +30,7 @@ angular.module('aws-fun')
             .then(
                 function successCallback(response) {
                     showToast(response.data.message)
-                    setInterval(
-                        function() {
-                            window.location.reload(true);
-                        }, 3000);
+                    $scope.getBucketList();
                 },
                 function errCallback(err) {
                     showToast(response.data.message)
@@ -57,6 +54,15 @@ angular.module('aws-fun')
             .targetEvent(event)
         ); */
     }
+
+
+    $scope.gotoState = function(viewName, bucketName) {
+        $state.go(viewName, { 'bucketName': bucketName });
+
+    }
+
+
+
 
     function showToast(msg) {
 

@@ -96,7 +96,80 @@ router.post('/create-bucket', function(req, res) {
 
 
 
-//===================================================//
+//======================Object List Operations=============================//
+
+
+
+router.get('/bucketobjects/:bucketName', function(req, res) {
+    console.log("Backend:Buckets Objects calling");
+    params = {};
+    params.Bucket = req.params.bucketName;
+    console.log("Backend:Got Bucket name for Objects :" + params.Bucket);
+
+
+    if (params.Bucket != null) {
+        s3.listObjects(params, function(err, data) {
+
+            if (err) {
+                console.log(err, err.stack);
+                console.log("Backend:/list-Objects " + err);
+                res.send(false);
+                return;
+            } else {
+                res.json(data.Contents);
+                console.log("Backend:/list-Objects " + data);
+                return;
+            }
+        });
+    } else {
+        res.status(404).send({ message: "s3 is not initialise" });
+    }
+});
+//=======================================================================//
+//====================Object Delete Operatiions=======================//
+
+
+
+router.post('/delete-object', function(req, res) {
+    console.log("Backend:Buckets Objects calling");
+    params = {};
+    params.Bucket = req.body.BucketName;
+    params.Key = req.body.FileName;
+    console.log("Backend:Got Bucket name for Objects Delete :" + params.Bucket);
+    console.log("Backend:Got Object name :" + params.Key);
+
+
+    if (params != null) {
+        s3.deleteObject(params, function(err, data) {
+
+            if (err) {
+                console.log(err, err.stack);
+                console.log("Backend:/list-Objects " + err);
+                res.send(false);
+                return;
+            } else {
+                res.send(data);
+                console.log("Backend:/list-Objects " + data);
+                return;
+            }
+        });
+    } else {
+        res.status(404).send({ message: "s3 is not initialise" });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //=====================Bucket list Operation===================//
@@ -119,7 +192,7 @@ router.get('/list-bucket', function(req, res) {
     // res.send(data.Buckets.length);
 });
 
-//=======================================================//
+//=======================================================================//
 
 //========================Delete Bucket==========================//
 

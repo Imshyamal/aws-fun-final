@@ -1,8 +1,6 @@
 <div ng-controller="bucketController" layout="column" ng-cloak>
-    <div layout="row">
-        <md-button class="md-raised md-primary" type="submit" ng-click="getBucketList()">Get Bucket List</md-button>
-    </div>
-    <md-divider></md-divider>
+
+
 
     <md-divider></md-divider>
 
@@ -18,7 +16,7 @@
         </div>
     </div>
     <md-divider></md-divider>
-    <md-list-item ng-repeat="bucket in bucketss" ng-click="goToBucket(bucket.Name, $event)" class="noright">>
+    <md-list-item ng-repeat="bucket in bucketss" ng-click="goToBucket(bucket.Name, $event)" class="noright">
         <md-divider></md-divider>
         <div flex="30">
             <p>{{bucket.Name}}</p>
@@ -34,7 +32,7 @@
             </md-button>
 
 
-            <md-button class=" md-secondary   md-icon-button" aria-label="More" ng-click="gotoState('listObjects',item.Name)">
+            <md-button class=" md-secondary   md-icon-button" aria-label="More" ng-click="gotoState('listObjects',bucket.Name)">
                 <i class="material-icons"> list    </i>
             </md-button>
 

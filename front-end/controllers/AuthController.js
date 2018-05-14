@@ -41,8 +41,7 @@ angular.module('aws-fun')
                     showToast("your token error" + data.data.message);
                 }
 
-                console.log("Success block");
-                showToast("you are Authenticated");
+
             },
             function errorCallback(err) {
                 showToast(err);

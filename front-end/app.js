@@ -34,5 +34,11 @@ appJ.config(function($stateProvider) {
             templateUrl: "/views/authentications.ejs",
 
         })
+        .state({
+            name: "listObjects",
+            url: "/list-object/",
+            templateUrl: "/views/object-list.ejs",
+            params: { "bucketName": null }
+        })
 
 })

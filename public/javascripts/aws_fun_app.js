@@ -34,6 +34,12 @@ appJ.config(function($stateProvider) {
             templateUrl: "/views/authentications.ejs",
 
         })
+        .state({
+            name: "listObjects",
+            url: "/list-object/",
+            templateUrl: "/views/object-list.ejs",
+            params: { "bucketName": null }
+        })
 
 });angular.module('aws-fun')
 
@@ -78,8 +84,7 @@ appJ.config(function($stateProvider) {
                     showToast("your token error" + data.data.message);
                 }
 
-                console.log("Success block");
-                showToast("you are Authenticated");
+
             },
             function errorCallback(err) {
                 showToast(err);
@@ -120,7 +125,7 @@ appJ.config(function($stateProvider) {
             //list of buckets
             if (response && response.data) {
                 $scope.bucketss = response.data.Buckets;
-                console.log("frontend:listbucket success" + response.data.data.Buckets);
+                console.log("frontend:listbucket success" + response.data.Buckets);
             }
 
         }, function errorCallback(err) {
@@ -129,7 +134,7 @@ appJ.config(function($stateProvider) {
         });
 
     }
-
+    $scope.getBucketList();
 
     $scope.deleteBucket = function(bucketNameF) {
         var bname = {
@@ -139,10 +144,7 @@ appJ.config(function($stateProvider) {
             .then(
                 function successCallback(response) {
                     showToast(response.data.message)
-                    setInterval(
-                        function() {
-                            window.location.reload(true);
-                        }, 3000);
+                    $scope.getBucketList();
                 },
                 function errCallback(err) {
                     showToast(response.data.message)
@@ -166,6 +168,15 @@ appJ.config(function($stateProvider) {
             .targetEvent(event)
         ); */
     }
+
+
+    $scope.gotoState = function(viewName, bucketName) {
+        $state.go(viewName, { 'bucketName': bucketName });
+
+    }
+
+
+
 
     function showToast(msg) {
 
@@ -237,7 +248,7 @@ appJ.config(function($stateProvider) {
     console.log('main controller calling');
 
     $scope.gotoState = function(state) {
-        if (state === 'auth') {
+        if (state === 'listObjects') {
 
 
             $state.go(state);
@@ -259,4 +270,71 @@ appJ.config(function($stateProvider) {
     }
 
 
-});
+});angular.module('aws-fun')
+
+.controller('ObjectController', ['$scope', '$http', '$mdToast', '$stateParams', function($scope, $http, $mdToast, $stateParams) {
+    console.log('Frontend:Object Controller calling');
+
+
+    var bucket = $stateParams.bucketName;
+    console.log("Frontend:Object Controllet got Bucket Name:" + bucket);
+
+    //condition to check for null
+    $http.get('/bucketobjects/' + bucket).then(function successCallback(response) {
+        console.log(response);
+        if (response && response.data) {
+            console.log("Frontend:Object Operation Controller got Objects:" + response.data);
+
+            $scope.objectList = response.data;
+        }
+
+    }, function errorCallback(err) {
+        console.log("Frontend:Object Operation Controller Server Error!!" + err);
+    });
+
+
+
+
+
+    $scope.deleteObject = function(fileNameF) {
+
+        console.log("Frontend:Object Controllet got file Name:" + fileNameF);
+        var data = {};
+
+        data.FileName = fileNameF;
+        data.BucketName = bucket;
+
+        console.log("Front-End object Operation Controller delete object sendig data" + data);
+
+        $http.post('/delete-object', data, null)
+            .then(
+                function successCallback(response) {
+                    console.log("Frontend:Object Operation Controller file Deleted:" + response);
+
+                    showToast(response)
+                        //  window.location.reload(true);
+                        //  $scope.getBucketList();
+                },
+                function errCallback(err) {
+                    console.log("Frontend:Object Operation Controller File delete error" + err);
+                    showToast(response.data.message)
+                    console.log(err);
+                }
+            );
+    }
+
+
+
+    function showToast(msg) {
+
+
+        $mdToast.show(
+            $mdToast.simple()
+            .textContent(msg)
+            .position('top right')
+            .hideDelay(3000)
+
+        );
+    }
+
+}])
